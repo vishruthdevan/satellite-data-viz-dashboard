@@ -23,6 +23,19 @@ fig1.update_layout(
    paper_bgcolor="mintcream",
    title=dict(x=0.5))
 
+data_purpose = data['Purpose'].value_counts().reset_index(name='Counts')
+data_purpose.columns = ['Purpose', 'Counts']
+fig2 = px.bar(
+   data_purpose[:5], 
+   x='Purpose', 
+   y="Counts", 
+   color="Counts", 
+   title="Purpose of satellites")
+fig2.update_layout(
+   margin=dict(l=10, r=10, t=50, b=10),
+   paper_bgcolor="#D6EAF8",
+   title=dict(x=0.5))
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
