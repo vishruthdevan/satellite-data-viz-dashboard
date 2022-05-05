@@ -85,6 +85,21 @@ fig4.update_layout(
    paper_bgcolor="aliceblue",
    title=dict(x=0.5))
 
+countries = {}
+for country in pycountry.countries:
+    countries[country.name] = country.alpha_3
+
+
+
+data_country = data['Country of Operator/Owner'].value_counts().reset_index(name='Count')
+data_country.columns = ['Country of Operator/Owner', 'Count']
+
+codes = [countries.get(country, country) for country in data_country['Country of Operator/Owner']]
+data_country['iso_codes'] = codes
+data_country['iso_codes'] = data_country['iso_codes'].replace(['Russia', 'South Korea', 'Bolivia', 'Venezuela', 'Czech Republic', 'Laos', 'China/Sri Lanka'],['RUS', 'KOR', 'BOL', 'VEN', 'CZE', 'LAO', 'LKA'])
+data_country['percentile'] = data_country['Count'].rank(method='max').apply(lambda x: 100.0*(x-1)/(len(data_country)-1))
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
