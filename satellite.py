@@ -131,5 +131,28 @@ world_map2.update_layout(
     title=dict(x=0.5))
 
 
+@app.callback(
+    Output('fig2', 'figure'),
+    Input('bar-slider', 'value'))
+def update_bar(value):
+    fig2_ = px.bar(data_purpose[:value], x='Purpose', y="Counts",
+                   color="Counts", title="Purpose of satellites")
+    fig2_.update_layout(
+        margin=dict(l=10, r=10, t=50, b=10),
+        paper_bgcolor="#D6EAF8",
+        title=dict(x=0.5))
+    return fig2_
+
+
+@app.callback(
+    Output('world_map2', 'figure'),
+    Input('world-map-toggle', 'value'))
+def update_world(value):
+    if value == False:
+        return world_map2
+    else:
+        return world_map1
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
