@@ -154,5 +154,37 @@ def update_world(value):
         return world_map1
 
 
+app.layout = html.Div(children=[
+    html.H1(children='Satellite Data Dashboard', style={
+            'textAlign': 'center', "font-family": "Arial"}),
+    html.Div([
+        html.Div([
+            dcc.Graph(id='fig2', figure=fig2, style={
+                'display': 'inline-block'}),
+        ], style={'width': "100%"}),
+        html.Div([
+            dcc.Slider(min=3, max=9, step=3, value=3, id="bar-slider")
+        ], style={'width': "80%"})
+    ],
+        style={'width': "50%", 'display': 'inline-block', "padding": "2rem 2rem"}
+    ),
+    dcc.Graph(id='fig1', figure=fig1, style={'display': 'inline-block'}),
+    html.P(),
+    html.Div([
+        dcc.Graph(id='fig3', figure=fig3)]),
+    html.P(),
+    dcc.Graph(id='world_map2', figure=world_map2, style={
+              "width": "1300px", "margin": "0 auto", "padding": "1rem 0rem"}),
+    daq.ToggleSwitch(
+        id='world-map-toggle',
+        label='Percentile/Count',
+        value=False,
+        color="magenta",
+    ),
+    html.Div([
+        dcc.Graph(id='fig4', figure=fig4)], style={"padding": "5rem 0rem"}),
+])
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
